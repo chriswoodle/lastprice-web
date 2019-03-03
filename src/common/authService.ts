@@ -33,7 +33,7 @@ export class AuthService extends EventEmitter {
             domain: domain,
             clientID: clientID,
             redirectUri: redirectUri,
-            responseType: 'id_token',
+            responseType: 'token id_token',
             scope: 'openid profile email'
         };
         log(config);

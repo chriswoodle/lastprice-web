@@ -20,3 +20,15 @@ export default class Home extends Vue {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.home {
+    img {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+    }
+}
+</style>
+

@@ -2,20 +2,38 @@
 <template>
     <div>
         <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link>
-            <a @click="logout()">Logout</a>
+            <div class='logo'>
+                <div class='icon'>
+                    <img alt="Vue logo" src="../../assets/logo.png">
+                </div>
+                <div class='name'>
+                    Last.Price
+                </div>
+            </div>
+            <div class='links'>
+                <router-link to="/">Home</router-link> |
+                <router-link to="/about">About</router-link> |
+                <a @click="logout()">Logout</a>
+            </div>
+
             <div class="profile">
                 <div class='username'>{{profile.nickname}}</div>
                 <div class='image'><img :src="profile.picture" /></div>
                 <div class='menu' menu>
+                    <router-link to="/customers" v-if='profile["https://woodle.ngrok.io/app_metadata"].company == true'>Company</router-link>
                     <a @click="logout()">
-                        <span>Log off</span>
+                        Log off
                     </a>
                 </div>
             </div>
         </div>
-        <router-view />
+        <div class='body'>
+            <router-view />
+        </div>
+        <div class='copyright'>
+            {{`KnightHacks 2019`}}
+        </div>
+
     </div>
 </template>
 
@@ -36,9 +54,16 @@ export default class Home extends Vue {
 
 <style lang="scss">
 $blue: #2d52db;
+.body {
+    height: 100%;
+    background: white;
+    width: 100%;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
 #nav {
     height: 90px;
-    line-height: 50px;
+    line-height: 90px;
     background: $blue;
     color: white;
     a {
@@ -50,8 +75,31 @@ $blue: #2d52db;
         &.router-link-exact-active {
         }
     }
+    .links {
+        margin-left: auto;
+        margin-right: auto;
+        position: absolute;
+        width: 100%;
+    }
+    .logo {
+        float: left;
+        > div {
+            display: inline-block;
+            vertical-align: top;
+        }
+        .icon {
+            img {
+                height: 90px;
+                width: 90px;
+            }
+        }
+        .name {
+            font-size: 25px;
+        }
+    }
     .profile {
-        float: right;
+        position: absolute;
+        right: 0;
         padding: 20px;
         > div {
             display: inline-block;
@@ -94,15 +142,11 @@ $blue: #2d52db;
                 height: 44px;
                 line-height: 44px;
                 transition: background-color 0.1s linear;
+                font-size: 12px;
+                color: white;
                 &:hover {
                     text-decoration: none;
-                    span {
-                        color: darken(white, 10%);
-                    }
-                }
-                span {
-                    font-size: 12px;
-                    color: white;
+                    color: darken(white, 10%);
                 }
             }
         }
