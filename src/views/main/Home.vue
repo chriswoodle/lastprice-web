@@ -1,11 +1,13 @@
 <template>
     <div class="home">
+        <h1>Orlando</h1>
+        <div><input v-model="target" placeholder="Target Price"></div>
         <div class='section' v-if='profile && profile["https://woodle.ngrok.io/app_metadata"] && profile["https://woodle.ngrok.io/app_metadata"].company == true'>
-            <h1>Corprate Reservation</h1>
+            <h1>Corporate Reservation</h1>
             <div class='hotels'>
-                <router-link to="/call" class='hotel' v-for='hotel of corprateHotels' :key="hotel.Hotel">
+                <router-link :to="{ name: 'call', params: { hotel: hotel, target: target}}" class='hotel' v-for='hotel of corprateHotels' :key="hotel.Hotel">
                     <div class='name'>{{hotel.Hotel}}</div>
-                    <div class='price'>{{hotel['vendor1-price']}}</div>
+                    <div class='price'>$ {{hotel['vendor1-price']}}</div>
                 </router-link>
             </div>
         </div>
@@ -13,9 +15,9 @@
             <h1>Hotels</h1>
             <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
             <div class='hotels'>
-                <router-link to="/call" class='hotel' v-for='hotel of hotels' :key="hotel.Hotel">
+                <router-link :to="{ name: 'call', params: { hotel: hotel, target: target}}" class='hotel' v-for='hotel of hotels' :key="hotel.Hotel">
                     <div class='name'>{{hotel.Hotel}}</div>
-                    <div class='price'>{{hotel['vendor1-price']}}</div>
+                    <div class='price'>$ {{hotel['vendor1-price']}}</div>
                 </router-link>
             </div>
         </div>
@@ -48,6 +50,7 @@ export interface Hotel {
     },
 })
 export default class Home extends Vue {
+    target = '';
     profile = this.$auth.profile;
     hotels = [];
     get corprateHotels() {
@@ -81,6 +84,10 @@ $green: #42b983;
 .section {
     margin-bottom: 30px;
 }
+input {
+    font-size: 18px;
+    margin: 15px;
+}
 .hotels {
     width: 400px;
     margin-left: auto;
@@ -107,7 +114,7 @@ $green: #42b983;
             padding: 13px;
         }
         .price {
-            width: 80px;
+            width: 55px;
             display: inline-block;
             position: absolute;
             right: 0;

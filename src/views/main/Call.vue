@@ -11,19 +11,50 @@ import debug from 'debug';
 
 const log = debug('lastprice:call');
 
+
+export interface Hotel {
+    "vendor3-price": string,
+    "vendor2": string,
+    "Hotel": string,
+    "vendor1": string,
+    "vendor3": string,
+    "vendor2-price": string,
+    "Best-price": string,
+    "vendor1-price": string
+}
+
 @Component
 export default class Call extends Vue {
     message = 'Starting call...';
+    profile = this.$auth.profile;
     mounted() {
         log('Mounted');
-        this.$http.put(`${process.env.VUE_APP_SERVICE_HOST}/call`, {}).then(response => {
-            // success callback
-            log(response.data);
-            this.message = 'Calling...';
-            this.checkCallStatus();
-        }, error => {
 
-        });
+        console.log(this.$route.params)
+        if (this.$route.params.hotel) {
+            const hotel: Hotel = this.$route.params.hotel as any;
+            const target = this.$route.params.target;
+            const body = {
+                currprice: hotel['vendor1-price'],
+                targetprice: target,
+                nextbestprice: '180',
+                nextbesthotel: 'roach%20inn',
+                customername: this.profile.nickname || 'mr%20cheapskate'
+            };
+            log(body);
+            this.$http.put(`${process.env.VUE_APP_SERVICE_HOST}/call`, body).then(response => {
+                // success callback
+                log(response.data);
+                this.message = 'Calling...';
+                this.checkCallStatus();
+            }, error => {
+
+            });
+        } else {
+            this.checkCallStatus();
+
+        }
+
 
 
     }
@@ -35,7 +66,7 @@ export default class Call extends Vue {
             if (response.data.calling === true) {
                 setTimeout(() => {
                     this.checkCallStatus();
-                }, 2000)
+                }, 3000)
             } else {
                 this.message = 'Call complete!';
             }
@@ -64,9 +95,9 @@ $green: #42b983;
     img {
         height: 100px;
         width: 100px;
+        margin-bottom: 20px;
     }
     span {
-        line-height: 60px;
         font-size: 20px;
         text-align: center;
         color: white;

@@ -2,7 +2,7 @@
     <div class="about">
         <img alt="Vue logo" src="../../assets/logo.png">
         <img :src="profile.picture" />
-        <h1>Thank you for your corprate partnership.</h1>
+        <h1>Thank you for your corporate partnership.</h1>
     </div>
 </template>
 
