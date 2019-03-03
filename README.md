@@ -1,6 +1,13 @@
 # Last.Price
 
-> Generated from Vue cli (`vue create hello-world`)
+![](./screenshots/splash.png)
+
+*A project made at KnightHacks2019.*
+
+# Screenshots
+
+![](./screenshots/login.png)
+![](./screenshots/auth0.png)
 
 ## Project setup
 ```
@@ -38,4 +45,7 @@ function (user, context, callback) {
 ```
 
 # References 
+
+> Generated from Vue cli (`vue create hello-world`)
+
 https://auth0.com/docs/quickstart/spa/vuejs/01-login
