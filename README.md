@@ -49,3 +49,4 @@ function (user, context, callback) {
 > Generated from Vue cli (`vue create hello-world`)
 
 https://auth0.com/docs/quickstart/spa/vuejs/01-login
+https://samherbert.net/svg-loaders/

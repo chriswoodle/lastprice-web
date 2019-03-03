@@ -3,8 +3,9 @@ import Router from 'vue-router'
 
 import Main from './views/main/Main.vue'
 import Home from './views/main/Home.vue'
-import About from './views/main/About.vue'
-
+import Call from './views/main/Call.vue'
+import Result from './views/main/Result.vue'
+import Company from './views/main/Company.vue'
 
 import Welcome from './views/welcome/Welcome.vue'
 import Login from './views/welcome/Login.vue'
@@ -16,13 +17,12 @@ Vue.use(Router)
 
 import { NavigationGuard } from 'vue-router';
 
-const renewGuard: NavigationGuard = (to, from, next) => {
-    AuthService.renewTokens().then(() => {
+const companyGuard: NavigationGuard = (to, from, next) => {
+    if(AuthService.profile && AuthService.profile["https://woodle.ngrok.io/app_metadata"] && AuthService.profile["https://woodle.ngrok.io/app_metadata"].company) {
         next();
-    }).catch((err: any) => {
-        console.warn(err)
-        next();
-    })
+    } else {
+        next({ name: 'home' });
+    }
 };
 
 const authenticatedGuard: NavigationGuard = (to, from, next) => {
@@ -77,6 +77,23 @@ export default new Router({
                     name: 'home',
                     beforeEnter: authenticatedGuard,
                     component: Home
+                },
+                {
+                    path: '/call',
+                    name: 'call',
+                    beforeEnter: authenticatedGuard,
+                    component: Call
+                },
+                {
+                    path: '/company',
+                    name: 'company',
+                    beforeEnter: companyGuard,
+                    component: Company
+                },
+                {
+                    path: '/result',
+                    name: 'result',
+                    component: Result
                 },
                 {
                     path: '/about',

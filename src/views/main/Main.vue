@@ -12,15 +12,14 @@
             </div>
             <div class='links'>
                 <router-link to="/">Home</router-link> |
-                <router-link to="/about">About</router-link> |
-                <a @click="logout()">Logout</a>
+                <router-link to="/about">About</router-link>
             </div>
 
             <div class="profile">
                 <div class='username'>{{profile.nickname}}</div>
                 <div class='image'><img :src="profile.picture" /></div>
                 <div class='menu' menu>
-                    <router-link to="/customers" v-if='profile["https://woodle.ngrok.io/app_metadata"].company == true'>Company</router-link>
+                    <router-link to="/company" v-if='profile && profile["https://woodle.ngrok.io/app_metadata"] && profile["https://woodle.ngrok.io/app_metadata"].company == true'>Company</router-link>
                     <a @click="logout()">
                         Log off
                     </a>
@@ -124,7 +123,7 @@ $blue: #2d52db;
             }
         }
         .menu {
-            position: fixed;
+            position: absolute;
             opacity: 0;
             pointer-events: none; // Disable hover pointer event when opacity: 0
             right: 0;
