@@ -19,3 +19,6 @@ yarn run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+# References 
+https://auth0.com/docs/quickstart/spa/vuejs/01-login
